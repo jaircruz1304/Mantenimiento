@@ -1,0 +1,196 @@
+/*
+  FIAS · Capa visual no invasiva
+  -------------------------------------------------------------
+  Este archivo SOLO sobreescribe estilos. No reemplaza ni modifica
+  la lógica Microsoft Graph / Excel / SharePoint del archivo base.
+*/
+:root{
+  --fias-950:#053326;
+  --fias-900:#074632;
+  --fias-800:#0b5a3d;
+  --fias-700:#187a49;
+  --fias-600:#23985a;
+  --fias-100:#eaf7ef;
+  --fias-50:#f5fbf7;
+  --ink:#152033;
+  --muted:#667085;
+  --line:#e6eaf0;
+  --surface:#f6f8fb;
+  --panel:#ffffff;
+  --sidebar:282px;
+}
+
+body{background:var(--surface)!important;color:var(--ink)}
+.app-shell{grid-template-columns:var(--sidebar) minmax(0,1fr)!important}
+.main{padding:22px 28px 42px!important;max-width:1720px;width:100%;margin:0 auto}
+
+/* ===== Barra lateral ===== */
+.sidebar{
+  background:linear-gradient(180deg,#073c2d 0%,#063426 55%,#05291f 100%)!important;
+  padding:18px 16px 20px!important;
+  box-shadow:8px 0 28px rgba(5,51,38,.12)!important;
+  border-right:1px solid rgba(255,255,255,.06);
+}
+.brand{margin-bottom:16px!important}
+.brand-logo-wrap{
+  min-height:94px!important;
+  width:100%!important;
+  background:#fff!important;
+  border-radius:20px!important;
+  padding:16px 18px!important;
+  box-shadow:0 10px 30px rgba(0,0,0,.18)!important;
+  overflow:hidden;
+}
+.brand-logo{
+  width:min(200px,100%)!important;
+  max-height:64px!important;
+  object-fit:contain!important;
+  image-rendering:auto!important;
+  filter:none!important;
+}
+.brand h1{font-size:1.03rem!important;line-height:1.2!important;letter-spacing:-.015em;margin-top:14px!important}
+.brand small{font-size:.77rem!important;line-height:1.35!important;color:#c6e3d0!important;opacity:1!important}
+.nav-group{margin:18px 8px 8px!important;color:#9cd1af!important;font-size:.68rem!important;letter-spacing:.14em!important}
+.nav-button{
+  min-height:48px!important;
+  margin:6px 0!important;
+  border-radius:14px!important;
+  padding:11px 13px!important;
+  background:transparent!important;
+  border:1px solid transparent!important;
+  color:#e7f3eb!important;
+  font-size:.91rem;
+  font-weight:780!important;
+  gap:12px!important;
+}
+.nav-button .bi{width:24px;height:24px;display:grid;place-items:center;font-size:1.08rem!important;color:#a9dcc0}
+.nav-button:hover{background:rgba(255,255,255,.09)!important;border-color:rgba(255,255,255,.07)!important;transform:none!important}
+.nav-button.active{
+  background:#fff!important;
+  color:var(--fias-800)!important;
+  border-color:#fff!important;
+  box-shadow:0 10px 24px rgba(0,0,0,.16)!important;
+  transform:none!important;
+}
+.nav-button.active .bi{color:var(--fias-700)!important}
+.sidebar-card{display:none!important}
+
+/* Rol de usuario inyectado sin tocar el núcleo */
+.fias-role-box{margin-top:18px;border-top:1px solid rgba(255,255,255,.11);padding:15px 7px 0;color:#d9ede0;font-size:.76rem;line-height:1.4}
+.fias-role-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-weight:850}
+.fias-role-dot{width:8px;height:8px;border-radius:50%;background:#8ed2a9;box-shadow:0 0 0 4px rgba(142,210,169,.12)}
+.fias-role-box.admin .fias-role-dot{background:#4ade80}
+.fias-role-email{color:#a8cdb5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ===== Cabecera ===== */
+.topbar{margin-bottom:14px!important;align-items:center!important}
+.page-title h2{font-size:clamp(1.55rem,2.2vw,2.15rem)!important;letter-spacing:-.035em!important}
+.page-title p{font-size:.9rem!important;line-height:1.45!important;max-width:780px!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.actions{gap:8px!important}
+.btn{border-radius:11px!important;min-height:40px}
+.btn-primary{background:linear-gradient(135deg,var(--fias-800),var(--fias-600))!important;box-shadow:0 7px 18px rgba(24,122,73,.22)!important}
+.btn-dark{background:#172033!important}
+.session-chip{padding:8px 11px!important;box-shadow:none!important;font-size:.82rem!important}
+
+/* Compactar la introducción sin eliminar IDs utilizados por el núcleo */
+.hero-grid{display:none!important}
+.fias-status-strip{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 16px;
+  background:#fff;border:1px solid var(--line);border-radius:15px;padding:8px 10px;
+  box-shadow:0 4px 14px rgba(16,24,40,.04)
+}
+.fias-status-item{display:inline-flex;align-items:center;gap:7px;padding:6px 9px;border-radius:10px;background:#f8fafb;font-size:.78rem;color:#475467}
+.fias-status-item strong{color:#172033;font-size:.8rem}
+.fias-status-led{width:8px;height:8px;border-radius:50%;background:#f59e0b}
+.fias-status-led.ok{background:#22c55e}
+
+/* ===== Tarjetas / KPI / tablas ===== */
+.grid-kpi{grid-template-columns:repeat(6,minmax(130px,1fr))!important;gap:11px!important;margin:12px 0 14px!important}
+.kpi{min-height:108px!important;padding:14px!important;border-radius:16px!important;box-shadow:0 5px 18px rgba(16,24,40,.045)!important}
+.kpi-label{font-size:.69rem!important}
+.kpi-value{font-size:1.48rem!important}
+.kpi-sub{font-size:.77rem!important}
+.kpi-icon{width:38px!important;height:38px!important;border-radius:12px!important}
+.section-grid{gap:13px!important}
+.card{border-radius:17px!important;box-shadow:0 5px 18px rgba(16,24,40,.045)!important;border-color:var(--line)!important}
+.card-head{padding:14px 16px!important}
+.card-head h3{font-size:.98rem!important}
+.card-head p{font-size:.8rem!important;line-height:1.35}
+.card-body{padding:15px!important}
+.chart-box{height:280px!important}.chart-box-sm{height:230px!important}
+.filters{gap:8px!important;margin-bottom:10px!important}
+.field label{font-size:.69rem!important}
+.field input,.field select,.field textarea{border-radius:10px!important;padding:9px 10px!important}
+.search-tools{margin:7px 0 11px!important}
+.search-insight{font-size:.82rem!important}
+.quick-chip{padding:6px 9px!important;font-size:.75rem!important}
+.maintenance-gallery{gap:10px!important;margin:8px 0 11px!important}
+.maint-card{border-radius:15px!important;padding:12px!important;box-shadow:none!important}
+.data-table th{font-size:.69rem!important;padding:10px!important}
+.data-table td{padding:10px!important;font-size:.88rem}
+.table-wrap{border-radius:13px!important}
+
+/* ===== Detalle: reducir ruido sin perder información ===== */
+.detail-dialog{border-radius:20px!important}
+.detail-head{padding:15px 17px!important}
+.detail-body{padding:15px!important}
+.detail-grid{gap:8px!important}
+.detail-cell{border-radius:12px!important;padding:9px!important}
+.detail-cell span{font-size:.65rem!important}
+.detail-cell strong{font-size:.9rem!important}
+.detail-section{margin-top:13px!important}
+.detail-section h4{font-size:.92rem!important}
+.obs-box{min-height:68px!important;padding:10px!important}
+.fias-validation-ok{display:flex;align-items:center;gap:9px;background:#eefbf3;border:1px solid #caead6;color:#126b3b;border-radius:12px;padding:10px 12px;font-weight:850;font-size:.85rem}
+.fias-validation-ok i{font-size:1rem}
+
+/* ===== Inteligencia preventiva inyectada ===== */
+.fias-intel-card{margin-top:13px;border:1px solid #dcebe2;background:linear-gradient(180deg,#ffffff,#f8fcf9);border-radius:17px;overflow:hidden}
+.fias-intel-head{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:14px 16px;border-bottom:1px solid #e5eee8}
+.fias-intel-head h3{margin:0;font-size:1rem}.fias-intel-head p{margin:3px 0 0;color:#667085;font-size:.8rem}
+.fias-intel-badge{display:inline-flex;align-items:center;gap:7px;border-radius:999px;background:#eaf7ef;color:#11653a;padding:7px 10px;font-weight:850;font-size:.75rem;white-space:nowrap}
+.fias-intel-body{padding:14px 16px}
+.fias-intel-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:11px}
+.fias-intel-metric{border:1px solid #e7ebe9;background:#fff;border-radius:12px;padding:10px}
+.fias-intel-metric span{display:block;color:#667085;font-size:.64rem;text-transform:uppercase;letter-spacing:.07em;font-weight:850}
+.fias-intel-metric strong{display:block;margin-top:3px;font-size:1.1rem;color:#173324}
+.fias-intel-list{display:grid;gap:7px}.fias-intel-row{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;border:1px solid #eaeeeb;border-radius:11px;padding:9px 10px;background:#fff;font-size:.82rem}.fias-intel-row strong{font-size:.85rem}.fias-intel-row .muted{font-size:.74rem}.fias-priority{border-radius:999px;padding:5px 8px;font-size:.68rem;font-weight:900}.fias-priority.bad{background:#feecec;color:#a31919}.fias-priority.warn{background:#fff4d7;color:#8a5c00}.fias-priority.ok{background:#eaf7ef;color:#11653a}
+
+/* escritura: se oculta solo después de identificar una cuenta no administradora */
+.fias-write-hidden{display:none!important}
+body.fias-readonly #ocrInput{pointer-events:none}
+
+@media(max-width:1320px){
+  .grid-kpi{grid-template-columns:repeat(3,1fr)!important}
+  .fias-intel-metrics{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:900px){
+  :root{--sidebar:100%}
+  .app-shell{display:block!important}
+  .sidebar{position:sticky!important;top:0!important;height:auto!important;z-index:45!important;padding:10px 12px!important;overflow:visible!important}
+  .brand{display:flex!important;align-items:center!important;gap:10px!important;margin:0 0 9px!important}
+  .brand-logo-wrap{width:94px!important;min-height:50px!important;padding:8px 10px!important;border-radius:12px!important;flex:0 0 94px!important}
+  .brand-logo{max-height:38px!important;width:78px!important}
+  .brand>div:last-child{margin-top:0!important;min-width:0}
+  .brand h1{font-size:.88rem!important;margin:0!important}.brand small{display:none!important}
+  .nav-group{display:none!important}
+  .sidebar{white-space:nowrap}
+  .sidebar .nav-button{display:inline-flex!important;width:auto!important;min-height:38px!important;margin:0 3px 0 0!important;padding:8px 10px!important;border-radius:11px!important;font-size:.78rem!important}
+  .sidebar .nav-button .bi{width:18px;height:18px;font-size:.92rem!important}
+  .sidebar{overflow-x:auto!important}
+  .fias-role-box{display:none!important}
+  .main{padding:16px!important}
+  .topbar{gap:10px!important;margin-bottom:10px!important}
+  .actions{width:100%!important}.actions .btn{flex:1 1 auto;justify-content:center}
+  .grid-kpi{grid-template-columns:repeat(2,1fr)!important}
+  .fias-status-strip{padding:7px}.fias-status-item{font-size:.72rem}
+  .fias-intel-row{grid-template-columns:1fr auto}
+  .fias-intel-row .muted{grid-column:1/-1}
+}
+@media(max-width:560px){
+  .grid-kpi{grid-template-columns:1fr 1fr!important;gap:8px!important}.kpi{min-height:96px!important;padding:11px!important}.kpi-value{font-size:1.25rem!important}
+  .page-title p{display:none!important}
+  .session-chip{max-width:100%;overflow:hidden}.session-chip span{max-width:190px!important}
+  .fias-intel-metrics{grid-template-columns:1fr 1fr}
+  .fias-intel-head{align-items:flex-start;flex-direction:column}
+}
