@@ -1,0 +1,2 @@
+make,model,year_from,year_to,engine,service_id,interval_km,interval_months,source_label,source_url,notes
+MARCA,MODELO,2020,2026,MOTOR,engine_oil,10000,12,Manual oficial,https://URL-OFICIAL,Ejemplo de formato; reemplazar con datos verificados

@@ -1,56 +1,79 @@
-# FIAS · Gestión Vehicular — versión estable
+# FIAS · Gestión Vehicular Inteligente
 
-Esta versión se construyó con una regla principal: **no modificar el núcleo de conexión que ya funcionaba**.
+Proyecto implementable sobre la base funcional existente de mantenimiento vehicular FIAS.
 
-## Arquitectura
+## Principio de arquitectura
 
-- `index.html` — copia del HTML base funcional. El bloque JavaScript original de Microsoft 365 / Microsoft Graph / Excel / SharePoint se conserva sin cambios.
-- `assets/fias-ui.css` — capa visual independiente: menú, responsive, jerarquía, compactación y presentación.
-- `assets/fias-enhancements.js` — mejoras de interfaz, control visual de rol y agenda preventiva. No reemplaza la sincronización.
+El archivo `BASE_ORIGINAL_NO_MODIFICAR.html` es una copia exacta del HTML base funcional recibido. `index.html` conserva ese núcleo y añade únicamente:
 
-## Cuenta administradora
+1. una hoja de estilos externa;
+2. un **bridge de solo lectura** que expone una copia de las tablas ya cargadas por el núcleo;
+3. módulos externos de análisis preventivo, interfaz y permisos.
 
-La interfaz reconoce como administradora a:
+No se reemplazan las funciones originales de autenticación Microsoft 365, Graph, resolución del Excel, sesiones, sincronización, OCR ni guardado.
+
+## Estructura
+
+```text
+/index.html
+/BASE_ORIGINAL_NO_MODIFICAR.html
+/assets/fias-ui.css
+/config/maintenance-rules.js
+/config/manufacturer-plans.js
+/config/manufacturer-plan.template.csv
+/intelligence/service-classifier.js
+/intelligence/prediction-engine.js
+/intelligence/alerts-engine.js
+/intelligence/maintenance-engine.js
+/ui/permissions.js
+/ui/vehicle-profile.js
+/ui/preventive-dashboard.js
+/ui/app-bootstrap.js
+/docs/*
+/tests/*
+/package.json
+/VERSION.json
+```
+
+## Funcionalidad inteligente
+
+- reconstruye el historial técnico por vehículo;
+- calcula kilometraje actual usando el inventario y el historial;
+- estima el ritmo de uso en km/mes con intervalos históricos válidos;
+- clasifica trabajos realizados por componentes;
+- determina último antecedente verificable por servicio;
+- proyecta próximo kilometraje y fecha estimada;
+- clasifica cada servicio como Vencido, Próximo, Programado, Al día o Sin información;
+- detecta reincidencias de componentes;
+- calcula tendencia de costos de 12 meses frente al período anterior;
+- genera alertas preventivas;
+- crea una ficha inteligente por vehículo;
+- añade una pestaña `Plan preventivo` sin alterar el flujo del núcleo.
+
+## Fuentes técnicas
+
+Los intervalos incluidos en `maintenance-rules.js` son **reglas preventivas referenciales FIAS**, no se presentan como recomendaciones oficiales de fabricantes.
+
+Los planes oficiales deben agregarse en `config/manufacturer-plans.js` únicamente con una fuente verificable. Cuando existe una coincidencia exacta por marca/modelo/año/motor, el motor da prioridad a esa regla.
+
+## Seguridad
+
+La cuenta administradora de interfaz es:
 
 `jcruzg@fias.org.ec`
 
-Las demás cuentas autenticadas se muestran en modo consulta y se ocultan/bloquean los controles de registro.
+El resto de cuentas se muestra en modo consulta y se bloquean los controles de alta/modificación en la interfaz.
 
-> **Importante:** el control real de seguridad debe reforzarse también en SharePoint/OneDrive: el libro maestro debe conceder edición únicamente a la cuenta administradora y lectura a los demás usuarios. La restricción del navegador mejora la experiencia y evita acciones accidentales, pero no sustituye permisos del origen de datos.
+**La seguridad real debe reforzarse en SharePoint/OneDrive:** conceder edición únicamente a la cuenta administradora y lectura al resto. La restricción del navegador no sustituye permisos de origen.
 
-## Qué NO se cambió
+## Publicación
 
-- `tenantId`
-- `clientId`
-- `shareTokenOrUrl`
-- scopes de Microsoft Graph
-- resolución del `driveItem`
-- creación/cierre de sesión Excel
-- lectura de tablas
-- modo binario XLSX
-- sincronización
-- funciones de Graph
-- OCR existente
-- formularios y guardado original
+Publicar la **carpeta completa** en GitHub Pages o el hosting utilizado actualmente. No publicar solo `index.html`.
 
-## Publicación en GitHub Pages
+Antes de producción ejecutar:
 
-Subir **la carpeta completa**, manteniendo esta estructura:
-
-```
-/index.html
-/assets/fias-ui.css
-/assets/fias-enhancements.js
+```bash
+npm test
 ```
 
-No publicar únicamente `index.html`, porque se perderán los estilos y mejoras externas.
-
-## Prueba recomendada antes de reemplazar producción
-
-1. Publicar esta carpeta en una rama o repositorio de prueba.
-2. Iniciar sesión con Microsoft 365.
-3. Ejecutar `Sincronizar`.
-4. Confirmar que aparecen KPIs, mantenimientos, vehículos, facturas y predicciones.
-5. Probar con `jcruzg@fias.org.ec` que se muestran los controles de registro.
-6. Probar con una cuenta de consulta que esos controles no aparezcan.
-7. Solo después sustituir la versión productiva.
+Luego probar autenticación, sincronización, consulta y escritura con las cuentas correspondientes.

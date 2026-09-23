@@ -1,0 +1,14 @@
+CHECKLIST DE PUBLICACIÓN FIAS
+============================
+[ ] Respaldar versión productiva actual.
+[ ] Publicar la carpeta COMPLETA, no solo index.html.
+[ ] Verificar que /assets, /config, /intelligence y /ui estén accesibles.
+[ ] Iniciar sesión con Microsoft 365.
+[ ] Sincronizar y confirmar estado Conectado.
+[ ] Comprobar KPIs, mantenimientos, vehículos, integridad, OCR y bitácora.
+[ ] Abrir Plan preventivo y contrastar al menos 3 vehículos reales.
+[ ] Probar jcruzg@fias.org.ec: controles de edición visibles.
+[ ] Probar otro usuario: modo consulta, sin controles de escritura.
+[ ] Confirmar permisos SharePoint: administrador=Editor; resto=Lectura.
+[ ] Incorporar planes de fabricante solo con manual/fuente oficial.
+[ ] Ejecutar npm test antes de pasar a producción.

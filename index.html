@@ -180,6 +180,8 @@
 
     .brand-logo,.auth-logo{user-select:none;-webkit-user-drag:none}
 </style>
+
+  <!-- FIAS EXTENSION: capa visual modular, no altera el núcleo -->
   <link rel="stylesheet" href="./assets/fias-ui.css" />
 </head>
 <body>
@@ -2095,9 +2097,48 @@
       }
     }
 
+
+    /* ===== FIAS EXTENSION BRIDGE: SOLO LECTURA =====
+       Expone una instantánea de datos al motor preventivo externo.
+       No modifica autenticación, Graph, Excel, sincronización ni escritura del núcleo. */
+    window.FIAS_CORE_BRIDGE = Object.freeze({
+      version: '1.0.0',
+      snapshot(){
+        const clone = (value) => {
+          try { return typeof structuredClone === 'function' ? structuredClone(value) : JSON.parse(JSON.stringify(value)); }
+          catch (_) { return JSON.parse(JSON.stringify(value || null)); }
+        };
+        const account = state.account ? {
+          username: state.account.username || '',
+          name: state.account.name || '',
+          tenantId: state.account.tenantId || ''
+        } : null;
+        return {
+          connected: !!state.connected,
+          syncInProgress: !!state.syncInProgress,
+          account,
+          lastSync: document.getElementById('lastSync')?.textContent || '',
+          tableNames: clone(CONFIG.tables),
+          rows: clone(state.rows)
+        };
+      }
+    });
+    window.dispatchEvent(new CustomEvent('fias:bridge-ready'));
+
     document.addEventListener('DOMContentLoaded', init);
   })();
   </script>
-  <script src="./assets/fias-enhancements.js"></script>
+
+  <!-- FIAS EXTENSIONS: módulos externos. El núcleo anterior permanece operativo. -->
+  <script src="./config/maintenance-rules.js"></script>
+  <script src="./config/manufacturer-plans.js"></script>
+  <script src="./intelligence/service-classifier.js"></script>
+  <script src="./intelligence/prediction-engine.js"></script>
+  <script src="./intelligence/alerts-engine.js"></script>
+  <script src="./intelligence/maintenance-engine.js"></script>
+  <script src="./ui/permissions.js"></script>
+  <script src="./ui/vehicle-profile.js"></script>
+  <script src="./ui/preventive-dashboard.js"></script>
+  <script src="./ui/app-bootstrap.js"></script>
 </body>
 </html>

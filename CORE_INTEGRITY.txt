@@ -1,8 +1,21 @@
-FIAS - INFORME DE INTEGRIDAD DEL NÚCLEO
-Core encontrado original: True
-Core encontrado nueva versión: True
-SHA256 original: 3c106ec53886ab3e211c86178ff8e789ffdd950934009b30cf41c1ce75da932d
-SHA256 nueva:    3c106ec53886ab3e211c86178ff8e789ffdd950934009b30cf41c1ce75da932d
-Bloque central idéntico: True
+FIAS · Integridad del núcleo base
+================================
 
-La única modificación en index.html consiste en cargar una hoja CSS y un JS de mejoras externos.
+Archivo base exacto: BASE_ORIGINAL_NO_MODIFICAR.html
+SHA-256 (bytes originales): 4c86b0653ac39abcecbe741ac76990bb96d4975f9fdb8f939f719873dc938075
+
+El index.html se genera a partir de este archivo y agrega solamente:
+1. assets/fias-ui.css
+2. FIAS_CORE_BRIDGE (solo lectura de state.rows/account/estado)
+3. scripts externos config/intelligence/ui
+
+La prueba automatizada tests/smoke-test.js compara los bloques críticos de:
+- CONFIG Microsoft/SharePoint
+- setupMsal
+- resolveDriveItem
+- closeWorkbookSession
+- createSession
+- loadTable
+- syncAll
+
+y falla si alguno difiere del archivo base.
